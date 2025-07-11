@@ -24,8 +24,9 @@ def main():
     relevant_jobs = filter_jobs(resume, jobs)
 
     print(f"✅ Found {len(relevant_jobs)} relevant jobs.")
-    output_html(relevant_jobs)
+    output_html(relevant_jobs, filename="output/job_matches.html")
     print("📬 Results saved to job_matches.html")
+    
 
 if __name__ == "__main__":
     main()
