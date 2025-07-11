@@ -2,9 +2,9 @@ import os
 from dotenv import load_dotenv
 from utils.job_scraper import get_mock_jobs
 from utils.ai_filter import filter_jobs
-from utils.email_sender import output_html
+from utils.email_sender import output_html, send_email_with_html_file
 
-# Load .env variables
+# Load environment variables from .env file
 load_dotenv()
 
 RESUME_PATH = "resume.txt"
@@ -24,9 +24,20 @@ def main():
     relevant_jobs = filter_jobs(resume, jobs)
 
     print(f"✅ Found {len(relevant_jobs)} relevant jobs.")
-    output_html(relevant_jobs, filename="output/job_matches.html")
-    print("📬 Results saved to job_matches.html")
-    
+
+    # Load output path from .env
+    output_path = os.getenv("HTML_OUTPUT_PATH", "output/job_matches.html")
+
+    # Save HTML report
+    output_html(relevant_jobs, filename=output_path)
+    print(f"📄 Report saved to {output_path}")
+
+    # Email the report
+    send_email_with_html_file(
+        to_email=os.getenv("EMAIL_TO"),
+        subject=os.getenv("EMAIL_SUBJECT", "Your AI-Filtered Job Matches"),
+        html_file=output_path
+    )
 
 if __name__ == "__main__":
     main()
