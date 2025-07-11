@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 import os
 from utils.job_scraper import get_mock_jobs
 from utils.ai_filter import filter_jobs
