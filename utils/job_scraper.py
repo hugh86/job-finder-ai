@@ -1,4 +1,4 @@
-#def get_mock_jobs():
+def get_mock_jobs():
     return [
         {
             "title": "ERP Consultant",
