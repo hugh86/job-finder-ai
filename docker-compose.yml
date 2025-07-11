@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  jobfinder:
+    build: .
+    container_name: jobfinder
+    restart: "no"
+    env_file:
+      - .env
+    volumes:
+      - ./output:/app/output
+    command: python main.py
